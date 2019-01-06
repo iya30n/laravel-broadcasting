@@ -1,65 +1,47 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<h2 dir="rtl">معرفی</h2>
+<p dir="rtl">از وقتی که با <a href="https://laravel.com/docs/5.6/broadcasting">broadcasting</a> لاراول آشنا شدم آموزش فارسی و کاملی برای آن پیدا نکردم همچنین در گروه های مختلف شاهد این بودم که عده ی زیادی نیاز به یادگیری و درک این مبحث دارند این امر باعث شد که به فکر نوشتن آموزش ساده و قابل فهم برای همه بی افتم.
+برای کسانی که با این قابلیت آشنایی ندارند بگویم که broadcasting برای ارسال نوتیفیکیشن به کاربر های آنلاین هم به صورت خصوصی هم به صورت عمومی بدون نیاز به refresh شدن صفحه و همچنین ساخت سیستم چت realtime به کار می رود البته اینها تنها کاربرد های این سرویس نیست و بسته به ایده های شما می تواند کاربرد های مختلف و بهتری هم داشته باشد.
+برای مثال پروژه ی خیلی ساده هم در اختیار شما قرار میدم تا با خوندن کد ها درک بهتری داشته باشید.</p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+<h2 dir="rtl">شروع کار</h2>
+<p dir="rtl">برای کار با این سرویس نیازمند استفاده از درایور ها هستیم که باعث میشوند پروژه اصلی کمتر درگیر شده و فشار کمتری هم به سرور بیاید.
+من در این آموزش از درایور pusher استفاده می کنم چون در هاست های اشتراکی قابل استفاده است و همچنین نیاز به کانفیگ کردن خاصی ندارد همچنین شما میتونید از redis و socket.io هم استفاده کنید که این امر نیازمند سرور اختصاصی هست.</p>
+
+<p dir="rtl">
+    اولین کاری که می کنیم این است که اول باید BroadcastServiceProvider رو در مسیر confog/app.php از کامنت خارج کنیم.
+اگر مثل من از لاراول 5.6 استفاده می کنید بهتر است از نسخه ی pusher 3.0 استفاده کنید در غیر این صورت نسخه ی سازگار با لاراول خودتون رو نصب کنید.
 </p>
 
-## About Laravel
+```
+composer require pusher/pusher-php-server "~3.0"
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+<p dir="rtl">
+    بعد از نصب شدن درایور به سایت <a href="https://pusher.com/">pusher</a> بروید و ثبت نام کنید.
+</p>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p dir="rtl">
+    پس از ثبت نام اپلیکیشن خود را رجیستر کنید تا app_id , app_key , app_secret , app_cluster برای شما ساخته شود.
+این اطلاعات را از سایت pusher به فایل env پروژه در قسمت های مشخص شده وارد کنید و BROADCAST_DRIVER را به pusher تغییر دهید.
+</p>
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+<p dir="rtl">
+    حال شما باید پکیج منیجر جاوااسکریپت یعنی npm را با دستور npm install نصب کنید.
+</p>
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+<p dir="rtl">
+   قدم بعدی نصب کتابخانه های pusher.js و laravel echo با دستور زیر است.
+</p>
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+```
+npm install --save laravel-echo pusher-js
+```
+<p dir="rtl">
+    پس از نصب شدن کتابخانه های pusher و laravel echo فایل bootstrap.js در مسیر resources/assets/js را باز کرده و کد های مربوط به laravel echo را از کامنت خارج کنید. همچنین میتوانید در همان مسیر کد های مربوط به vue js را در فایل app.js پاک کنید(در صورتی که در پروژه از این فریمورک استفاده نمی کنید).
+</p
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<p dir="rtl">
+    حال پروژه آماده ی کار با broadcasting است.
+</p>
