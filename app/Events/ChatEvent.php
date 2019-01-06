@@ -13,7 +13,6 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class ChatEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    // public $user;
     public $message;
     public $id;
 
@@ -24,7 +23,6 @@ class ChatEvent implements ShouldBroadcast
      */
     public function __construct($message , $id)
     {
-        // $this->user=$user;
         $this->message=$message;
         $this->id=$id;
     }
@@ -37,6 +35,6 @@ class ChatEvent implements ShouldBroadcast
     public function broadcastOn()
     {
         return new PrivateChannel('chat.'.$this->id);
-        // return new Channel('chat');
+        // return new Channel('chat'); //برای استفاده ی public
     }
 }

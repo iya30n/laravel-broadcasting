@@ -22,7 +22,6 @@ class ChatsController extends Controller
             'receiver'=>request()->receiver,
             'message'=>request()->message
         ]);
-    	// $user=User::find($id);
 		broadcast(new ChatEvent($chat , $chat->receiver));
 	}
 }

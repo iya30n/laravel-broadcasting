@@ -24,7 +24,6 @@
 
 	<script>
 		$(document).ready(function () {
-			// var id=$("#receiver").val();
 			$("#send").click(function () {
 				var receiver = $("#receiver").val();
 				var message = $("#message").val();
