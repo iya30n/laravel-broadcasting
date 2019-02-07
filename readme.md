@@ -192,7 +192,7 @@ $(document).ready(function(){
 
 <br><br>
 
-<h3 dir="rtl">در controller جه می گذرد؟ </h3>
+<h3 dir="rtl">در controller چه می گذرد؟ </h3>
 
 <p dir="rtl">
     فرض کنید ما ChatController را ساخته ایم. اکنون در متد send آن پیام را دریافت می کنیم و آن را به ChatEvent می سپاریم.
